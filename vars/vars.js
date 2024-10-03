@@ -1,2 +1,2 @@
-let myScore = 0, opponentScore = 0;
-let get
+let myGoals = 0, hisGoals = 0;
+let ballPosition = getBallPosition();
