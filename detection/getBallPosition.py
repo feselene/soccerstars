@@ -1,6 +1,5 @@
-import pyautogui
 import cv2
-
+import pyautogui
 
 screenshot = pyautogui.screenshot()
 screenshot.save("CurrentGame.jpg")
