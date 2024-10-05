@@ -17,6 +17,7 @@ def detect_score(image_path):
     # Define the regions of interest (ROIs) for the scores
     # You might need to adjust these coordinates based on where the scores appear on the screen
     # Assuming two regions: one for each player's score
+    # Sample video: https://www.youtube.com/watch?v=hpd1ji3e-5Y
     score_region_player_1 = thresh[50:150, 50:200]  # Adjust coordinates
     score_region_player_2 = thresh[50:150, 300:450]  # Adjust coordinates
 
