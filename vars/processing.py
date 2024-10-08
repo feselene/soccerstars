@@ -1,56 +1,47 @@
 import numpy as np
+import math
 
-def move(ball_position, player_positions, score):
+def move(ball_position, player_position, score):
     """
-    Determines the best move based on ball position, player positions, and score.
+    Generates the best move for a player towards the ball.
     
     Parameters:
     ball_position (tuple): (x, y) coordinates of the ball.
-    player_positions (list of tuples): List of (x, y) coordinates for each player.
+    player_position (tuple): (x, y) coordinates of the player.
     score (tuple): (team_score, opponent_score).
     
     Returns:
-    list of tuples: List of (x_move, y_move) indicating the direction for each player to move.
+    tuple: (angle, length) where angle is in degrees and length is the distance to move.
     """
-    moves = []
-    team_score, opponent_score = score
     ball_x, ball_y = ball_position
+    player_x, player_y = player_position
+    team_score, opponent_score = score
 
-    for player_x, player_y in player_positions:
-        # Calculate vector to the ball
-        vector_to_ball = (ball_x - player_x, ball_y - player_y)
-        distance_to_ball = np.hypot(vector_to_ball[0], vector_to_ball[1])
+    # Calculate the vector from player to ball
+    dx = ball_x - player_x
+    dy = ball_y - player_y
 
-        # Normalize movement vector to get the direction
-        if distance_to_ball > 0:
-            normalized_vector = (vector_to_ball[0] / distance_to_ball, vector_to_ball[1] / distance_to_ball)
-        else:
-            normalized_vector = (0, 0)
+    # Calculate the angle in degrees
+    angle = math.degrees(math.atan2(dy, dx))
 
-        # Movement strategy based on score
-        if team_score <= opponent_score:
-            # Offensive strategy: move towards the ball
-            move_x = normalized_vector[0]
-            move_y = normalized_vector[1]
-        else:
-            # Defensive strategy: stay between ball and goal (assuming goal at y=0 or another position)
-            goal_position = (player_x, 0)  # Example goal position; adjust as needed
-            vector_to_goal = (goal_position[0] - player_x, goal_position[1] - player_y)
-            normalized_vector_goal = (vector_to_goal[0] / distance_to_ball, vector_to_goal[1] / distance_to_ball)
+    # Calculate the length (distance) of the arrow
+    length = math.sqrt(dx**2 + dy**2)
 
-            # Combine ball and goal directions for balanced defense
-            move_x = 0.5 * normalized_vector[0] + 0.5 * normalized_vector_goal[0]
-            move_y = 0.5 * normalized_vector[1] + 0.5 * normalized_vector_goal[1]
+    # Adjust length based on the score
+    if team_score <= opponent_score:
+        # Offensive strategy: Use full length to move directly towards the ball
+        move_length = length
+    else:
+        # Defensive strategy: Use half the length
+        move_length = length / 2
 
-        # Append the calculated move for the player
-        moves.append((move_x, move_y))
-
-    return moves
+    return angle, move_length
 
 # Example usage
 ball_position = (300, 200)
-player_positions = [(100, 100), (120, 140), (150, 170), (180, 200), (220, 240)]
+player_position = (100, 100)
 score = (2, 2)  # Tied game example
 
-player_moves = move(ball_position, player_positions, score)
-print("Player Moves:", player_moves)
+angle, length = move(ball_position, player_position, score)
+print(f"Move Angle: {angle} degrees")
+print(f"Move Length: {length}")
