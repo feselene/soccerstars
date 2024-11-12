@@ -166,6 +166,18 @@ def handle_player_collision(pos1, vel1, pos2, vel2, radius):
         vel1[1], vel2[1] = vel2[1] * math.sin(angle), vel1[1] * math.sin(angle)
 
 
+def handle_goal_post_collision(pos, vel, radius):
+    # Left goal post collision
+    if pos[0] - radius < GOAL_LEFT_X + GOAL_WIDTH and GOAL_Y < pos[1] < GOAL_Y + GOAL_HEIGHT:
+        pos[0] = GOAL_LEFT_X + GOAL_WIDTH + radius  # Push out of the goal area
+        vel[0] = -vel[0]  # Reverse x-velocity to simulate bounce
+
+    # Right goal post collision
+    elif pos[0] + radius > GOAL_RIGHT_X and GOAL_Y < pos[1] < GOAL_Y + GOAL_HEIGHT:
+        pos[0] = GOAL_RIGHT_X - radius  # Push out of the goal area
+        vel[0] = -vel[0]  # Reverse x-velocity to simulate bounce
+
+
 # Main game loop
 running = True
 clock = pygame.time.Clock()
@@ -195,6 +207,9 @@ while running:
     for i in range(3):
         update_position_with_bounds(team1_positions[i], team1_velocities[i], PADDLE_FRICTION)
         update_position_with_bounds(team2_positions[i], team2_velocities[i], PADDLE_FRICTION)
+        # Check goal post collision for each player
+        handle_goal_post_collision(team1_positions[i], team1_velocities[i], PADDLE_RADIUS)
+        handle_goal_post_collision(team2_positions[i], team2_velocities[i], PADDLE_RADIUS)
 
     # Wall collision for puck (top and bottom)
     if puck_pos[1] <= PUCK_RADIUS or puck_pos[1] >= HEIGHT - PUCK_RADIUS:
