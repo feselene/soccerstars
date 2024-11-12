@@ -11,8 +11,8 @@ pygame.display.set_caption("Air Hockey")
 
 # Colors
 WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
-RED = (255, 0, 0)
+RED = (254, 60, 114)  # Tinder Red
+BLUE = (29, 161, 242)  # Twitter Blue
 BLACK = (0, 0, 0)
 
 # Game constants
