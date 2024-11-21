@@ -1,3 +1,4 @@
 torch
 gym
 numpy
+pip install numpy pandas matplotlib scikit-learn tensorflow keras pytorch torchvision
