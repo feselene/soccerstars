@@ -177,6 +177,20 @@ def handle_goal_post_collision(pos, vel, radius):
         pos[0] = GOAL_RIGHT_X - radius  # Push out of the goal area
         vel[0] = -vel[0]  # Reverse x-velocity to simulate bounce
 
+# Function to add basic AI control for team2
+def ai_control(team_positions, puck_pos):
+    for i, pos in enumerate(team_positions):
+        # AI moves paddles toward the puck's position on the Y-axis
+        if puck_pos[1] > pos[1]:
+            team2_velocities[i][1] = min(3, puck_pos[1] - pos[1])  # Move down
+        elif puck_pos[1] < pos[1]:
+            team2_velocities[i][1] = max(-3, puck_pos[1] - pos[1])  # Move up
+        else:
+            team2_velocities[i][1] = 0  # Stop if aligned
+
+        # Prevent AI paddles from moving out of their bounds
+        if pos[0] > WIDTH - 150:  # AI paddles stay in their area
+            pos[0] = WIDTH - 150  # Ensure AI paddles stay within their zone
 
 # Main game loop
 running = True
