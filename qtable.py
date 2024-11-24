@@ -1,1 +1,0 @@
-# Calculate the positions of the ball and players in Python
