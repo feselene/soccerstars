@@ -29,7 +29,7 @@ class AirHockeyEnv(gym.Env):
         self.observation_space = spaces.Box(
             low=0,
             high=max(WIDTH, HEIGHT),
-            shape=(12,),  # 6 paddle positions (x, y for each), 2 puck position, 2 puck velocities
+            shape=(16,),
             dtype=np.float32,
         )
 
