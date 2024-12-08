@@ -3,7 +3,6 @@ from gym import spaces
 import numpy as np
 import math
 
-# Constants
 WIDTH, HEIGHT = 800, 400
 PADDLE_RADIUS = 20
 PUCK_RADIUS = 15
@@ -48,13 +47,12 @@ class AirHockeyEnv(gym.Env):
         return self._get_obs()
 
     def step(self, action):
-        # Apply actions to team2 (AI team)
         for i in range(3):
-            if action[i] == 0:  # Up
+            if action[i] == 0:
                 self.team2_velocities[i][1] = -3
-            elif action[i] == 1:  # Down
+            elif action[i] == 1:
                 self.team2_velocities[i][1] = 3
-            else:  # Stay
+            else:
                 self.team2_velocities[i][1] = 0
 
         # Update positions and velocities
