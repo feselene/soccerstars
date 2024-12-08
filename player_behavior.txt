@@ -1,0 +1,8 @@
+Offensive players will try to kick the ball into the goal and try to kick the other players away from the goal. 
+Defensive players will focus on keeping their players in front of the goal and put their players between the goal and the ball. 
+
+AI Requirements: Can shoot ball into goal and do multiple collisions. Don't leave the goal wide open. 
+
+Development Environment: Python
+Emulator: Bluestacks
+Dependencies: Python, OpenCV, PyTorch, NumPy, TensorFlow (optional), and YOLO.
