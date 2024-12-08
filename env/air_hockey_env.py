@@ -32,7 +32,6 @@ class AirHockeyEnv(gym.Env):
             dtype=np.float32,
         )
 
-        # Initialize game state
         self.reset()
 
     def reset(self):
@@ -55,19 +54,16 @@ class AirHockeyEnv(gym.Env):
             else:
                 self.team2_velocities[i][1] = 0
 
-        # Update positions and velocities
         for i in range(3):
             self._update_position_with_bounds(self.team2_positions[i], self.team2_velocities[i], PADDLE_FRICTION)
             self._update_position_with_bounds(self.team1_positions[i], self.team1_velocities[i], PADDLE_FRICTION)
 
         self._update_position_with_bounds(self.puck_pos, self.puck_vel, PUCK_FRICTION)
 
-        # Handle collisions
         for i in range(3):
             self._handle_paddle_collision(self.team1_positions[i], self.team1_velocities[i])
             self._handle_paddle_collision(self.team2_positions[i], self.team2_velocities[i])
 
-        # Check for goals
         reward, self.done = self._check_goals()
 
         return self._get_obs(), reward, self.done, {}
@@ -86,7 +82,6 @@ class AirHockeyEnv(gym.Env):
         vel[0] *= friction
         vel[1] *= friction
 
-        # Constrain to boundaries
         pos[0] = np.clip(pos[0], BOUNDARY_LEFT + PADDLE_RADIUS, BOUNDARY_RIGHT - PADDLE_RADIUS)
         pos[1] = np.clip(pos[1], BOUNDARY_TOP + PADDLE_RADIUS, BOUNDARY_BOTTOM - PADDLE_RADIUS)
 
@@ -112,11 +107,11 @@ class AirHockeyEnv(gym.Env):
 
     def _check_goals(self):
         if self.puck_pos[0] <= GOAL_LEFT_X:
-            self.scores[1] += 1  # Team2 scores
+            self.scores[1] += 1
             self._reset_puck()
             return -1, True
         elif self.puck_pos[0] >= GOAL_RIGHT_X:
-            self.scores[0] += 1  # Team1 scores
+            self.scores[0] += 1
             self._reset_puck()
             return 1, True
         return 0, False
