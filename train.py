@@ -2,11 +2,11 @@ import os
 import gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EvalCallback, CheckpointCallback
-from env.air_hockey_env import AirHockeyEnv  # Import your custom environment
+from env.air_hockey_env import AirHockeyEnv
 
 LOG_DIR = "./logs/"
 MODELS_DIR = "./models/"
-TOTAL_TIMESTEPS = 100000  # Number of timesteps to train
+TOTAL_TIMESTEPS = 100000
 EVAL_FREQ = 10000         # Evaluate every N timesteps
 SAVE_FREQ = 20000         # Save model checkpoint every N timesteps
 
