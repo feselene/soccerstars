@@ -4,7 +4,6 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EvalCallback, CheckpointCallback
 from env.air_hockey_env import AirHockeyEnv  # Import your custom environment
 
-# Constants
 LOG_DIR = "./logs/"
 MODELS_DIR = "./models/"
 TOTAL_TIMESTEPS = 100000  # Number of timesteps to train
